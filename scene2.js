@@ -22,9 +22,9 @@ class Scene2 extends Phaser.Scene {
         var style2 = { font: "26px Arial", fill: "#da0b0b ", boundsAlignH:"center", boundsAlignV: "middle"};
         var text2 = this.add.text(50, 200, "Instructions:", style2);
         var style3 = { font: "26px Arial", fill: "#000 ", align:"left", wordWrap: {width: 1000, useAdvanceWrap: true}};
-        var text3 = this.add.text(150, 265, "The rules of the game are similar to the rules of blackjack, you and the computer randomly pick cards and the score should not cross 23", style3)
+        var text3 = this.add.text(150, 265, "The rules of the game are similar to the rules of blackjack, you and the computer randomly pick cards and the score should not cross 21", style3)
         var text4 = this.add.text(150, 345, "The score of each card is the number present on it, Jack, Queen and King have 10 points and Ace has 1 point", style3)
-        var text5 = this.add.text(150, 425, "The person scores the most points with crossing 23 is the winner and gets 10 points for a win round", style3);
+        var text5 = this.add.text(150, 425, "If the player has more points than the computer without crossing 21 the player wins", style3);
         var text5 = this.add.text(150, 505, "Total of 6 rounds", style3);
         
         var nextButton = this.add.sprite(200, 575, 'nextButton').setInteractive();

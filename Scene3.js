@@ -12,6 +12,7 @@ class Scene3 extends Phaser.Scene {
     let arr = [];
     let valuearr = [];
     this.score = 0;
+    this.curIndex = 0;
     for(var i = 0;i<4;i++) {
       var house = "spade";
       if (i==1) {
@@ -57,36 +58,61 @@ class Scene3 extends Phaser.Scene {
 
     this.ScoreGot = this.add.bitmapText(10, 20, "pixelFont", "Score:  " + this.score.toString() , 26);
 
-    var cardspace = this.add.sprite(140,550, 'card-space');
+    var cardspace = this.add.sprite(140,450, 'card-space');
     cards = this.add.group();
 
     var tempcard = this.add.sprite(config.width * 0.5, 200, 'card-back');
     tempcard.depth = depthvar;
     depthvar-=1;
 
+    this.draw = this.add.bitmapText(50, 575, "pixelFont", "Draw Card:", 28);
+
+    var yesButton  = this.add.sprite(100, 650, 'yesButton').setInteractive();
+    var noButton = this.add.sprite(200, 650, 'noButton').setInteractive();
+    noButton.alpha = 0.5;  
+
     cards.add(tempcard);
     cards.children.each(function(card) {card.setInteractive()},);
 
-    tempcard.on('pointerdown', () => {
-      var index = Math.floor(Math.random() * 52);
-      var nextcard = arr[index];
+    yesButton.on('pointerdown', () => {
+      var index = [];
+      index.push(7);
+      index.push(15);
+      index.push(30);
+      index.push(9);
+      if(this.curIndex>=2) {
+        noButton.alpha = 1;
+        noButton.setInteractive();
+        noButton.on('pointerdown', ()=> {
+          alert("The opponent scores 19 you Lose :'( \n move to next round");
+          this.scene.start("playGame2");
+        })
+        // const alertHTML = '<div class="alert">ALERT!!!</div>';
+        // document.body.insertAdjacentHTML('beforeend', alertHTML);
+        // setTimeout(() => document.querySelector('.alert').classList.add('hide'), 3000);
+      }
+      var nextcard = arr[index[this.curIndex]];
       // console.log(nextcard);
       // console.log(index);
-      var nextvalue = valuearr[index];
+      var nextvalue = valuearr[index[this.curIndex]];
+      this.curIndex+=1;
       this.score+=nextvalue;
       this.ScoreGot.text = "Score:  " + this.score.toString();
-      this.flip(tempcard,offsetx,nextcard);
+      this.flip(tempcard,offsetx,nextcard,this.score);
       var tempcard2 = this.add.sprite(config.width * 0.5, 200, 'card-back').setInteractive();
       tempcard2.depth = depthvar;
       depthvar-=1;
       offsetx += 40;
       tempcard = tempcard2;
-      this.draw = this.add.bitmapText(10, 650, "pixelFont", "Click above to Draw another card", 30);
+      if(this.score>=21) {
+        alert("you exceeded 21 you lose :'( \n move to next round");
+        this.scene.start("playGame2");
+      }
     });
     // cards.children.each(function(card) {card.on('pointerdown', () => function(pointer) {this.flip(card);}); }, this);
   }
 
-  flip(card,offsetx,nextcard){
+  flip(card,offsetx,nextcard,score){
     // console.log(this);
     const timeline = this.tweens.timeline({
       onComplete: () => {
@@ -124,7 +150,7 @@ class Scene3 extends Phaser.Scene {
     timeline.add({
       targets: card,
       x: 100+offsetx,
-      y: 550,
+      y: 450,
       ease: 'Power1',
       duration: 500
     })

@@ -61,6 +61,9 @@ class Scene1 extends Phaser.Scene {
       this.load.image("card-diamond-J", "assets/images/Cards/cardDiamondsJ.png");
       this.load.image("card-diamond-Q", "assets/images/Cards/cardDiamondsQ.png");
       this.load.image("card-diamond-K", "assets/images/Cards/cardDiamondsK.png");
+
+      this.load.image("yesButton", "assets/images/yesButton.jpg");
+      this.load.image("noButton", "assets/images/noButton.jpg");
       
       this.load.bitmapFont("pixelFont", "assets/font/font.png", "assets/font/font.xml");
       this.load.html('nameform', 'assets/text/loginform.html');
