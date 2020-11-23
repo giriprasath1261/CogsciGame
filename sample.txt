@@ -1,0 +1,7 @@
+6 games:
+    1. stop with 16
+    2. stop with 15
+    3. stop with 17
+    4. stop with 15
+    5. stop with 17
+    6. stop with 16
