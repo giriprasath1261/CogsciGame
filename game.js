@@ -2,7 +2,7 @@ var config = {
   width: 1280,
   height: 720,
   backgroundColor: 0x000000,
-  scene: [Scene1, Scene2, Scene3, Scene4],
+  scene: [Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7],
   pixelArt: true,
   dom: {
     createContainer: true

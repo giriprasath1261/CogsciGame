@@ -84,36 +84,37 @@ class Scene3 extends Phaser.Scene {
         noButton.alpha = 1;
         noButton.setInteractive();
         noButton.on('pointerdown', ()=> {
-          alert("The opponent scores 19 you Lose :'( \n move to next round");
+          let data = "(16, lose, lose) no risk";
+          localStorage.setItem("risks", Number(0));
+          // console.log(risks);
+          alert("The opponent scores 14 you win :) \n move to next round");
           this.scene.start("playGame2");
         })
-        // const alertHTML = '<div class="alert">ALERT!!!</div>';
-        // document.body.insertAdjacentHTML('beforeend', alertHTML);
-        // setTimeout(() => document.querySelector('.alert').classList.add('hide'), 3000);
       }
       var nextcard = arr[index[this.curIndex]];
-      // console.log(nextcard);
-      // console.log(index);
       var nextvalue = valuearr[index[this.curIndex]];
       this.curIndex+=1;
       this.score+=nextvalue;
       this.ScoreGot.text = "Score:  " + this.score.toString();
       this.flip(tempcard,offsetx,nextcard,this.score);
       var tempcard2 = this.add.sprite(config.width * 0.5, 200, 'card-back').setInteractive();
+      var tempcard3 = this.add.sprite(config.width * 0.5, 200, 'card-back').setInteractive();
       tempcard2.depth = depthvar;
+      tempcard3.depth = depthvar;
       depthvar-=1;
       offsetx += 40;
       tempcard = tempcard2;
+      this.flip2(tempcard3, offsetx);
       if(this.score>=21) {
-        alert("you exceeded 21 you lose :'( \n move to next round");
+        localStorage.setItem("risks", Number(1));
+        // console.log(risks);
+        alert("opponent exceeded 21 you scored 20 you win :) \n move to next round");
         this.scene.start("playGame2");
       }
     });
-    // cards.children.each(function(card) {card.on('pointerdown', () => function(pointer) {this.flip(card);}); }, this);
   }
 
   flip(card,offsetx,nextcard,score){
-    // console.log(this);
     const timeline = this.tweens.timeline({
       onComplete: () => {
         timeline.destroy();
@@ -150,6 +151,36 @@ class Scene3 extends Phaser.Scene {
     timeline.add({
       targets: card,
       x: 100+offsetx,
+      y: 450,
+      ease: 'Power1',
+      duration: 500
+    })
+
+    timeline.add({
+      targets: card,
+      scale: 1,
+      duration: 300
+    });
+
+    timeline.play();
+  }
+
+  flip2(card,offsetx){
+    const timeline = this.tweens.timeline({
+      onComplete: () => {
+        timeline.destroy();
+      }
+    });
+
+    timeline.add({
+      targets: card,
+      scale: 1.1,
+      duration: 300
+    });
+
+    timeline.add({
+      targets: card,
+      x: 800+offsetx,
       y: 450,
       ease: 'Power1',
       duration: 500

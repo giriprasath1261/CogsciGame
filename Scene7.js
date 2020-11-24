@@ -1,11 +1,14 @@
-class Scene4 extends Phaser.Scene {
+class Scene7 extends Phaser.Scene {
     constructor() {
-      super("playGame2");
+        super("playGame4");
     }
   
     init(data) {
       this._name = data.name;
       this._rollno = data.rollno;
+      this.timerText;
+      this.timer;
+      this.graphics;
     }
   
     create() {
@@ -50,13 +53,15 @@ class Scene4 extends Phaser.Scene {
       var cards;
       var depthvar = 100;
       var offsetx = 40;
-      console.log("risks");
-      console.log(localStorage.getItem("risks"));
+    //   console.log("risks");
+    //   console.log(localStorage.getItem("risks"));
+      this.graphics = this.add.graphics(32,32);
   
       this.background = this.add.tileSprite(0, 0, config.width, config.height, "background");
       this.background.setOrigin(0, 0);
   
       this.ScoreGot = this.add.bitmapText(10, 20, "pixelFont", "Score:  " + this.score.toString() , 26);
+      this.TimerDone = this.add.bitmapText(10, 40, "pixelFont", "Timer:  ", 26);
   
       var cardspace = this.add.sprite(140,450, 'card-space');
       cards = this.add.group();
@@ -73,9 +78,11 @@ class Scene4 extends Phaser.Scene {
   
       cards.add(tempcard);
       cards.children.each(function(card) {card.setInteractive()},);
+      this.timer = this.time.delayedCall(5000, this.onEvent, [], this);
   
       yesButton.on('pointerdown', () => {
         var index = [];
+        this.timer = this.time.delayedCall(5000, this.onEvent, [], this);
         index.push(17);
         index.push(5);
         index.push(29);
@@ -84,9 +91,9 @@ class Scene4 extends Phaser.Scene {
           noButton.alpha = 1;
           noButton.setInteractive();
           noButton.on('pointerdown', ()=> {
-            var risks = localStorage.getItem("risks");
-            risks = risks + 0;
-            localStorage.setItem("risks", risks);
+            // var risks = localStorage.getItem("risks");
+            // risks = risks + 0;
+            localStorage.setItem("risks", 0);
             console.log(risks);
             alert("The opponent scores 19 you Lose :'( \n move to next round");
             this.scene.start("playGame3");
@@ -107,14 +114,21 @@ class Scene4 extends Phaser.Scene {
         tempcard = tempcard2;
         this.flip2(tempcard3, offsetx);
         if(this.score>=21) {
-            var risks = localStorage.getItem("risks");
-            risks = risks + 1;
-            localStorage.setItem("risks", risks);
+            // var risks = localStorage.getItem("risks");
+            // risks = risks + 1;
+            localStorage.setItem("risks", 1);
             console.log(risks);
             alert("you exceeded 21 you lose :'( \n move to next round");
             this.scene.start("playGame3");
         }
       });
+    }
+    update() {
+        this.graphics.clear();
+        this.graphics.depth = 100;
+        this.graphics.fillStyle("0x329dfb", 1);
+        this.graphics.fillRect(0, 55, 1280*this.timer.getProgress(), 10);
+        this.timerText = this.timer.getProgress().toString().substr(0,4);
     }
   
     flip(card,offsetx,nextcard,score){
@@ -196,7 +210,11 @@ class Scene4 extends Phaser.Scene {
         });
     
         timeline.play();
-      }      
+    }
+    
+    onEvent(){
+        alert("Timer over");
+    }
     // update() { 
     // }
   

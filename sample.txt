@@ -1,13 +1,8 @@
 12 games:
-    1. stop with 16 win if draw
-    2. stop with 15 lose if draw
-    3. stop with 17 lose if draw
-    4. stop with 15 win if draw
-    5. stop with 17 win if draw
-    6. stop with 16 lose if draw
-    7. stop with 17 lose if draw timer
-    8. stop with 15 win if draw timer
-    9. stop with 16 win if draw timer
-    10. stop with 16 lose if draw timer
-    11. stop with 17 win if draw timer
-    12. stop with 15 lose if draw timer
+    1. stop with 16 win
+    2. stop with 15 lose
+    3. stop with 15 lose  
+    4. stop with 16 win  timer
+    5. stop with 15 win  timer
+    6. stop with 16 lose timer
+

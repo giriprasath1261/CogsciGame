@@ -1,6 +1,6 @@
-class Scene4 extends Phaser.Scene {
+class Scene5 extends Phaser.Scene {
     constructor() {
-      super("playGame2");
+      super("playGame3");
     }
   
     init(data) {
@@ -76,10 +76,10 @@ class Scene4 extends Phaser.Scene {
   
       yesButton.on('pointerdown', () => {
         var index = [];
-        index.push(17);
-        index.push(5);
-        index.push(29);
-        index.push(35);
+        index.push(37);
+        index.push(1);
+        index.push(15);
+        index.push(49);
         if(this.curIndex>=2) {
           noButton.alpha = 1;
           noButton.setInteractive();
@@ -89,7 +89,7 @@ class Scene4 extends Phaser.Scene {
             localStorage.setItem("risks", risks);
             console.log(risks);
             alert("The opponent scores 19 you Lose :'( \n move to next round");
-            this.scene.start("playGame3");
+            this.scene.start("Timer");
           })
         }
         var nextcard = arr[index[this.curIndex]];
@@ -112,7 +112,7 @@ class Scene4 extends Phaser.Scene {
             localStorage.setItem("risks", risks);
             console.log(risks);
             alert("you exceeded 21 you lose :'( \n move to next round");
-            this.scene.start("playGame3");
+            this.scene.start("Timer");
         }
       });
     }
